@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanilla JS Kanban Board</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <h1>Kanban Board</h1>
+    </header>
+
+    <main class="kanban-container">
+        <!-- To Do Column -->
+        <section class="kanban-column" id="todo-column">
+            <h2>To Do</h2>
+            <div class="task-list" data-status="todo">
+                <!-- Placeholder Card -->
+                <div class="task-card" draggable="true">
+                    <h3>Design UI Wireframe</h3>
+                    <p>Sketch out columns and card components.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- In Progress Column -->
+        <section class="kanban-column" id="inprogress-column">
+            <h2>In Progress</h2>
+            <div class="task-list" data-status="inprogress">
+                <div class="task-card" draggable="true">
+                    <h3>Setup Repository</h3>
+                    <p>Initialize git and basic file structure.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Done Column -->
+        <section class="kanban-column" id="done-column">
+            <h2>Done</h2>
+            <div class="task-list" data-status="done">
+                <div class="task-card" draggable="true">
+                    <h3>Project Planning</h3>
+                    <p>Define requirements and timeline.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

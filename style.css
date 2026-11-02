@@ -1,0 +1,94 @@
+:root {
+    --bg-color: #f4f6f9;
+    --column-bg: #ebecf0;
+    --card-bg: #ffffff;
+    --text-color: #172b4d;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    --radius: 8px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.app-header {
+    padding: 20px 30px;
+    background-color: var(--card-bg);
+    border-bottom: 1px solid #dfe1e6;
+}
+
+.app-header h1 {
+    font-size: 1.5rem;
+}
+
+/* Kanban Board Grid Layout */
+.kanban-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 30px;
+    flex: 1;
+    overflow-x: auto;
+}
+
+.kanban-column {
+    background-color: var(--column-bg);
+    border-radius: var(--radius);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+}
+
+.kanban-column h2 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    padding-left: 5px;
+    color: #5e6c84;
+}
+
+/* Task List Drop Zone Area */
+.task-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 150px;
+    padding-bottom: 10px;
+}
+
+/* Task Card Styling */
+.task-card {
+    background-color: var(--card-bg);
+    padding: 12px 15px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    cursor: grab;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.task-card:active {
+    cursor: grabbing;
+}
+
+.task-card h3 {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+}
+
+.task-card p {
+    font-size: 0.85rem;
+    color: #5e6c84;
+}
