@@ -80,16 +80,35 @@ function renderTasks() {
 }
 
 /**
- * Sets up drop zone event listeners on all column containers (.task-list).
+ * Sets up drop zone event listeners on all column containers (.task-list) 
+ * and their parent columns for visual feedback.
  * 
- * - dragover: Prevents the browser's default behavior to signal that this is a valid drop target.
- * - drop: Extracts the dragged task ID from dataTransfer, updates its status in the tasks array,
- *         and calls renderTasks() to redraw the board with the updated state.
+ * - dragover: Prevents default browser behavior to signal a valid drop target.
+ * - dragenter: Adds a highlight class to the column when a card enters its boundary.
+ * - dragleave: Removes the highlight class when the card leaves the column boundary.
+ * - drop: Extracts dragged task ID, updates its status in the tasks array,
+ *         clears highlights, and calls renderTasks() to sync the UI state.
  */
 function setupDropZones() {
-    const taskLists = document.querySelectorAll('.task-list');
+    const columns = document.querySelectorAll('.kanban-column');
 
-    taskLists.forEach(list => {
+    columns.forEach(column => {
+        const list = column.querySelector('.task-list');
+
+        // Highlight column on drag enter
+        column.addEventListener('dragenter', (e) => {
+            e.preventDefault();
+            column.classList.add('drag-over');
+        });
+
+        // Remove highlight on drag leave
+        column.addEventListener('dragleave', (e) => {
+            // Ensure we only trigger when leaving the column container entirely
+            if (!column.contains(e.relatedTarget)) {
+                column.classList.remove('drag-over');
+            }
+        });
+
         // Allow dropping by preventing default browser behavior
         list.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -98,11 +117,12 @@ function setupDropZones() {
         // Handle the drop action
         list.addEventListener('drop', (e) => {
             e.preventDefault();
+            column.classList.remove('drag-over');
 
             // Retrieve the stored task ID from the dataTransfer object
             const taskId = e.dataTransfer.getData('text/plain');
             
-            // Get the target column's status from its data attribute
+            // Get the target column's status from its inner list data attribute
             const newStatus = list.dataset.status;
 
             // Find the task in our state array and update its status property

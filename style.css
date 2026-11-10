@@ -98,3 +98,8 @@ body {
     border: 2px dashed #0052cc;
     background-color: #f4f5f7;
 }
+
+.kanban-column.drag-over {
+    background-color: #deebff;
+    border: 2px dashed #0052cc;
+}
