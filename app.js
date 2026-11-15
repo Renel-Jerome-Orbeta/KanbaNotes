@@ -81,11 +81,10 @@ function renderTasks() {
 
 /**
  * Sets up drop zone event listeners on all column containers (.task-list) 
- * and their parent columns for visual feedback.
+ * and their parent columns for visual feedback and state updating.
  * 
+ * - dragenter/dragleave: Manages visual column highlighting when dragging cards over them.
  * - dragover: Prevents default browser behavior to signal a valid drop target.
- * - dragenter: Adds a highlight class to the column when a card enters its boundary.
- * - dragleave: Removes the highlight class when the card leaves the column boundary.
  * - drop: Extracts dragged task ID, updates its status in the tasks array,
  *         clears highlights, and calls renderTasks() to sync the UI state.
  */
@@ -137,8 +136,74 @@ function setupDropZones() {
     });
 }
 
-// Initialize the application, render tasks, and activate drop zones once the DOM is loaded
+/**
+ * Sets up event listeners for opening, closing, and submitting the task creation modal.
+ * 
+ * - Modal Toggling: Opens/closes the modal overlay and resets form input fields.
+ * - Form Submission: Prevents page reload, captures input values, generates a unique task ID,
+ *                   pushes the new task object into the tasks array, re-renders the board, 
+ *                   and closes the modal.
+ */
+function setupModal() {
+    const modal = document.getElementById('task-modal');
+    const openBtn = document.getElementById('open-modal-btn');
+    const closeBtn = document.getElementById('close-modal-btn');
+    const taskForm = document.getElementById('task-form');
+
+    // Open modal when clicking "+ Add New Task"
+    openBtn.addEventListener('click', () => {
+        modal.classList.add('active');
+    });
+
+    // Close modal when clicking "Cancel"
+    closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+        taskForm.reset();
+    });
+
+    // Close modal if clicking outside the modal content box on the dark overlay
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            taskForm.reset();
+        }
+    });
+
+    // Handle form submission to create a new task
+    taskForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Capture input values from form fields
+        const titleInput = document.getElementById('task-title').value.trim();
+        const descInput = document.getElementById('task-desc').value.trim();
+        const statusInput = document.getElementById('task-status').value;
+
+        // Ensure title is not empty before proceeding
+        if (!titleInput) return;
+
+        // Create a new task object with a unique ID using current timestamp
+        const newTask = {
+            id: Date.now().toString(),
+            title: titleInput,
+            description: descInput,
+            status: statusInput
+        };
+
+        // Push new task into our single source of truth array
+        tasks.push(newTask);
+
+        // Re-render board to display the newly created task card
+        renderTasks();
+
+        // Reset form inputs and close modal overlay
+        taskForm.reset();
+        modal.classList.remove('active');
+    });
+}
+
+// Initialize the application, render tasks, activate drop zones, and setup modal controls once the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     renderTasks();
     setupDropZones();
+    setupModal();
 });
