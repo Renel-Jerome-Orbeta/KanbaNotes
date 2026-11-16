@@ -140,6 +140,38 @@ body {
     color: #5e6c84;
 }
 
+/* Task Card Footer Actions */
+.task-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 10px;
+    border-top: 1px solid #ebecf0;
+    padding-top: 8px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #5e6c84;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.icon-btn:hover {
+    background-color: #ebecf0;
+    color: var(--text-color);
+}
+
+.icon-btn.delete-btn:hover {
+    background-color: #ffebe6;
+    color: #de350b;
+}
+
 /* Modal Overlay & Content */
 .modal-overlay {
     position: fixed;
