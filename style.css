@@ -31,10 +31,55 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
 .app-header h1 {
     font-size: 1.5rem;
+}
+
+/* Header Controls, Search Bar, Priority Filter & Column Form */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.column-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-input,
+.filter-select,
+.column-input {
+    padding: 8px 12px;
+    border: 1px solid #dfe1e6;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    font-family: inherit;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input {
+    min-width: 220px;
+}
+
+.column-input {
+    width: 170px;
+}
+
+.search-input:focus,
+.filter-select:focus,
+.column-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 82, 204, 0.15);
 }
 
 /* Buttons */
@@ -57,10 +102,11 @@ body {
     background-color: #ebecf0;
     color: var(--text-color);
     border: none;
-    padding: 8px 16px;
+    padding: 8px 14px;
     border-radius: var(--radius);
     cursor: pointer;
     font-weight: 500;
+    transition: background-color 0.2s;
 }
 
 .secondary-btn:hover {
@@ -70,11 +116,13 @@ body {
 /* Kanban Board Grid Layout */
 .kanban-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(280px, 1fr);
     gap: 20px;
     padding: 30px;
     flex: 1;
     overflow-x: auto;
+    align-items: start;
 }
 
 .kanban-column {
@@ -92,11 +140,35 @@ body {
     border: 2px dashed var(--primary-color);
 }
 
-.kanban-column h2 {
-    font-size: 1.1rem;
+.column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
     margin-bottom: 15px;
     padding-left: 5px;
+}
+
+.column-header h2 {
+    font-size: 1.1rem;
     color: #5e6c84;
+}
+
+.delete-column-btn {
+    background: none;
+    border: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #5e6c84;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.delete-column-btn:hover {
+    background-color: #ffebe6;
+    color: #de350b;
 }
 
 /* Task List Drop Zone Area */
@@ -130,14 +202,46 @@ body {
     background-color: #f4f5f7;
 }
 
+.task-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
 .task-card h3 {
     font-size: 0.95rem;
-    margin-bottom: 6px;
 }
 
 .task-card p {
     font-size: 0.85rem;
     color: #5e6c84;
+}
+
+/* Priority Badges */
+.priority-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+
+.priority-low {
+    background-color: #e3fcef;
+    color: #006644;
+}
+
+.priority-medium {
+    background-color: #fffae6;
+    color: #974f0c;
+}
+
+.priority-high {
+    background-color: #ffebe6;
+    color: #bf2600;
 }
 
 /* Task Card Footer Actions */

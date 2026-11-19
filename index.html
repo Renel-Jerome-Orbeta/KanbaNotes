@@ -10,29 +10,25 @@
 
     <header class="app-header">
         <h1>Kanban Board</h1>
-        <!-- Button to trigger the task creation modal -->
-        <button id="open-modal-btn" class="primary-btn">+ Add New Task</button>
+        <!-- Header controls: search input, priority filter, new column form, and task creation trigger -->
+        <div class="header-controls">
+            <input type="search" id="search-input" class="search-input" placeholder="Search tasks by title or description..." aria-label="Search tasks">
+            <select id="priority-filter" class="filter-select" aria-label="Filter tasks by priority">
+                <option value="all" selected>All Priorities</option>
+                <option value="high">High Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="low">Low Priority</option>
+            </select>
+            <form id="add-column-form" class="column-form">
+                <input type="text" id="new-column-title" class="column-input" placeholder="New column name..." aria-label="New column name">
+                <button type="submit" class="secondary-btn">+ Add Column</button>
+            </form>
+            <button id="open-modal-btn" class="primary-btn">+ Add New Task</button>
+        </div>
     </header>
 
-    <main class="kanban-container">
-        <!-- To Do Column -->
-        <section class="kanban-column" id="todo-column">
-            <h2>To Do</h2>
-            <div class="task-list" data-status="todo"></div>
-        </section>
-
-        <!-- In Progress Column -->
-        <section class="kanban-column" id="inprogress-column">
-            <h2>In Progress</h2>
-            <div class="task-list" data-status="inprogress"></div>
-        </section>
-
-        <!-- Done Column -->
-        <section class="kanban-column" id="done-column">
-            <h2>Done</h2>
-            <div class="task-list" data-status="done"></div>
-        </section>
-    </main>
+    <!-- Columns are dynamically rendered here from column state -->
+    <main class="kanban-container" id="kanban-container"></main>
 
     <!-- Task Modal (Used for both creating and editing tasks) -->
     <div id="task-modal" class="modal-overlay">
@@ -48,12 +44,16 @@
                     <textarea id="task-desc" rows="3" placeholder="Enter task description..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="task-status">Status</label>
-                    <select id="task-status">
-                        <option value="todo">To Do</option>
-                        <option value="inprogress">In Progress</option>
-                        <option value="done">Done</option>
+                    <label for="task-priority">Priority</label>
+                    <select id="task-priority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="task-status">Status</label>
+                    <select id="task-status"></select>
                 </div>
                 <div class="modal-actions">
                     <button type="button" id="close-modal-btn" class="secondary-btn">Cancel</button>
