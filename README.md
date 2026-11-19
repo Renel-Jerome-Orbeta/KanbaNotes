@@ -11,12 +11,12 @@ A single-page Kanban board application built with **HTML5**, **CSS3**, and **Jav
 - **Browser `localStorage` Persistence:** Automatically saves and loads columns (`kanban_columns`) and tasks (`kanban_tasks`) across page reloads, with safe JSON parsing and fallback defaults.
 
 ## Project Structure
-
+```text
 kanban-board/
 ├── index.html   # Page layout, header controls, board container, and task modal markup
 ├── style.css    # Grid/flexbox styling, card/badge styles, drag states, and modal overlay
 └── app.js       # State management, DOM rendering, drag-and-drop, filters, and localStorage 
-
+```
 ## How to Run
 
 1. Place index.html, style.css, and app.js in the same project folder.
